@@ -87,10 +87,11 @@ public:
         unsigned long index = hornerHash(key);
         if (!find(key)) {
             // Put the item at that index in the table
+            reads += 1;
             table[index].push_back(item);
 
         }
-        reads += 3;
+        reads += 2;
     }
 
     // find
@@ -158,11 +159,11 @@ private:
     // The function to get the key from the object
     function<string(Hashable)> getKey;
 
-    // Hash function
+    // DJB2 hash function
     unsigned long otherHash(string key) {
-        unsigned long hashVal = 0;
+        unsigned long hashVal = 5381;
         for (char &letter : key) {
-            hashVal = key.size() + letter;
+            hashVal = ((hashVal << 5) + hashVal) + letter;
 
         }
         return hashVal % tableSize;
@@ -204,10 +205,11 @@ public:
         unsigned long index = otherHash(key);
         if (!find(key)) {
             // Put the item at that index in the table
+            reads += 1;
             table[index].push_back(item);
 
         }
-        reads += 3;
+        reads += 2;
     }
 
     // find

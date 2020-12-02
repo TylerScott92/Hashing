@@ -20,26 +20,16 @@ private:
     const unsigned long TABLE_SIZE_FOUR = 2750;
     const unsigned long TABLE_SIZE_FIVE = 3000;
 
-    unsigned long hornerHash(string key, unsigned long tableSize) {
-        unsigned long hashVal = 0;
-        for (char &letter : key) {
-            hashVal = hashVal * 37 + letter;
-        }
-        return hashVal % tableSize;
-    }
-
     static string getSolId(MarsWeather sol_key) {
         return std::to_string(sol_key.getSol());
-        // return to_string(lec.getClass1());
     }
 
     static string getPressure(MarsWeather pressure_key) {
         return std::to_string(pressure_key.getPressure());
     }
 
-
-
 public:
+
     /**
      * Separate Chaining
      */
@@ -55,56 +45,63 @@ public:
         SeparateChaining<MarsWeather> weather_sc_five(TABLE_SIZE_FIVE, getSolId);
 
         //For second getKey (getPressure)
-        SeparateChaining<MarsWeather> weather_sc_pressure(TABLE_SIZE_FIVE, getPressure);
+        SeparateChaining<MarsWeather> weather_sc_pressure(TABLE_SIZE_ONE, getPressure);
 
         //For second Hash Function
-        SeparateChainingOtherHash<MarsWeather> weather_sc_other_hash(TABLE_SIZE_FIVE, getSolId);
+        SeparateChainingOtherHash<MarsWeather> weather_sc_other_hash(TABLE_SIZE_ONE, getSolId);
+
+        //Both
+        SeparateChainingOtherHash<MarsWeather> weather_sc_both(TABLE_SIZE_ONE, getPressure);
 
         for (MarsWeather &weather_id_sc : weather) {
             weather_sc_one.insert(weather_id_sc);
-            //cout << hornerHash(std::to_string(weather_id_sc.getSol()), TABLE_SIZE_ONE) << endl;
         }
 
         for (MarsWeather &weather_id_sc : weather) {
             weather_sc_two.insert(weather_id_sc);
-            //cout << hornerHash(std::to_string(weather_id_sc.getSol()), TABLE_SIZE_TWO) << endl;
         }
 
         for (MarsWeather &weather_id_sc : weather) {
             weather_sc_three.insert(weather_id_sc);
-            //cout << hornerHash(std::to_string(weather_id_sc.getSol()), TABLE_SIZE_THREE) << endl;
         }
 
         for (MarsWeather &weather_id_sc : weather) {
             weather_sc_four.insert(weather_id_sc);
-            //cout << hornerHash(std::to_string(weather_id_sc.getSol()), TABLE_SIZE_FOUR) << endl;
         }
 
         for (MarsWeather &weather_id_sc : weather) {
             weather_sc_five.insert(weather_id_sc);
-            //cout << hornerHash(std::to_string(weather_id_sc.getSol()), TABLE_SIZE_FIVE) << endl;
         }
 
         for (MarsWeather &weather_id_sc : weather) {
             weather_sc_pressure.insert(weather_id_sc);
-            //cout << hornerHash(std::to_string(weather_id_sc.getSol()), TABLE_SIZE_FIVE) << endl;
         }
 
         for (MarsWeather &weather_id_sc : weather) {
             weather_sc_other_hash.insert(weather_id_sc);
-            //cout << hornerHash(std::to_string(weather_id_sc.getSol()), TABLE_SIZE_FIVE) << endl;
         }
 
+        for (MarsWeather &weather_id_sc : weather) {
+            weather_sc_both.insert(weather_id_sc);
+        }
+
+        // Write to file
+        std::ofstream file_sequence;
+        file_sequence.open("../separate_chaining.csv");
+        if (file_sequence) {
+
+            file_sequence << weather_sc_one.getReads() << std::endl;
+            file_sequence << weather_sc_two.getReads() << std::endl;
+            file_sequence << weather_sc_three.getReads() << std::endl;
+            file_sequence << weather_sc_four.getReads() << std::endl;
+            file_sequence << weather_sc_five.getReads() << std::endl;
+            file_sequence << weather_sc_pressure.getReads() << std::endl;
+            file_sequence << weather_sc_other_hash.getReads() << std::endl;
+            file_sequence << weather_sc_both.getReads() << std::endl;
 
 
-        std::cout << "\nSeparate Chaining" << std::endl;
-        std::cout << "Number of Reads: " << weather_sc_one.getReads() << std::endl;
-        std::cout << "Number of Reads: " << weather_sc_two.getReads() << std::endl;
-        std::cout << "Number of Reads: " << weather_sc_three.getReads() << std::endl;
-        std::cout << "Number of Reads: " << weather_sc_four.getReads() << std::endl;
-        std::cout << "Number of Reads: " << weather_sc_five.getReads() << std::endl;
-        std::cout << "Number of Reads: " << weather_sc_pressure.getReads() << std::endl;
-        std::cout << "Number of Reads: " << weather_sc_other_hash.getReads() << std::endl;
+        }
+        file_sequence.close();
 
     }
 
@@ -124,54 +121,63 @@ public:
         QuadraticProbing<MarsWeather> weather_qp_five(TABLE_SIZE_FIVE, getSolId);
 
         //Second getKey (getPressure)
-        QuadraticProbing<MarsWeather> weather_qp_pressure(TABLE_SIZE_FIVE, getPressure);
+        QuadraticProbing<MarsWeather> weather_qp_pressure(TABLE_SIZE_TWO, getPressure);
 
         //Second hash function
         QuadraticProbingOtherHash<MarsWeather> weather_qp_other_hash(TABLE_SIZE_TWO, getSolId);
 
+        //Both
+        QuadraticProbingOtherHash<MarsWeather> weather_qp_both(TABLE_SIZE_TWO, getPressure);
+
         for (MarsWeather &weather_id_qp : weather) {
             weather_qp_one.insert(weather_id_qp);
-            //cout << hornerHash(std::to_string(weather_id_qp.getSol()), TABLE_SIZE_ONE) << endl;
         }
 
         for (MarsWeather &weather_id_qp : weather) {
             weather_qp_two.insert(weather_id_qp);
-            //cout << hornerHash(std::to_string(weather_id_qp.getSol()), TABLE_SIZE_ONE) << endl;
         }
 
         for (MarsWeather &weather_id_qp : weather) {
             weather_qp_three.insert(weather_id_qp);
-            //cout << hornerHash(std::to_string(weather_id_qp.getSol()), TABLE_SIZE_ONE) << endl;
         }
 
         for (MarsWeather &weather_id_qp : weather) {
             weather_qp_four.insert(weather_id_qp);
-            //cout << hornerHash(std::to_string(weather_id_qp.getSol()), TABLE_SIZE_ONE) << endl;
         }
 
         for (MarsWeather &weather_id_qp : weather) {
             weather_qp_five.insert(weather_id_qp);
-            //cout << hornerHash(std::to_string(weather_id_qp.getSol()), TABLE_SIZE_ONE) << endl;
         }
 
         for (MarsWeather &weather_id_qp : weather) {
             weather_qp_pressure.insert(weather_id_qp);
-            //cout << hornerHash(std::to_string(weather_id_qp.getSol()), TABLE_SIZE_ONE) << endl;
         }
 
         for (MarsWeather &weather_id_qp : weather) {
             weather_qp_other_hash.insert(weather_id_qp);
-            //cout << hornerHash(std::to_string(weather_id_qp.getSol()), TABLE_SIZE_ONE) << endl;
         }
 
-        std::cout << "\nQuadratic Probing" << std::endl;
-        std::cout << "Number of reads: " << weather_qp_one.getReads() << std::endl;
-        std::cout << "Number of reads: " << weather_qp_two.getReads() << std::endl;
-        std::cout << "Number of reads: " << weather_qp_three.getReads() << std::endl;
-        std::cout << "Number of reads: " << weather_qp_four.getReads() << std::endl;
-        std::cout << "Number of reads: " << weather_qp_five.getReads() << std::endl;
-        std::cout << "Number of reads: " << weather_qp_pressure.getReads() << std::endl;
-        std::cout << "Number of reads: " << weather_qp_other_hash.getReads() << std::endl;
+        for (MarsWeather &weather_id_qp : weather) {
+            weather_qp_both.insert(weather_id_qp);
+        }
+
+        // Write to file
+        std::ofstream file_sequence;
+        file_sequence.open("../quadratic_probing.csv");
+        if (file_sequence) {
+
+            file_sequence << weather_qp_one.getReads() << std::endl;
+            file_sequence << weather_qp_two.getReads() << std::endl;
+            file_sequence << weather_qp_three.getReads() << std::endl;
+            file_sequence << weather_qp_four.getReads() << std::endl;
+            file_sequence << weather_qp_five.getReads() << std::endl;
+            file_sequence << weather_qp_pressure.getReads() << std::endl;
+            file_sequence << weather_qp_other_hash.getReads() << std::endl;
+            file_sequence << weather_qp_both.getReads() << std::endl;
+
+
+        }
+        file_sequence.close();
     }
 
 };

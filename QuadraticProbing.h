@@ -212,11 +212,12 @@ private:
     // The function to get the key from the object
     function<string(Hashable)> getKey;
 
-    // Hash function
-    unsigned long hornerHash(string key) {
-        unsigned long hashVal = 0;
+    // DJB2 hash function
+    unsigned long otherHash(string key) {
+        unsigned long hashVal = 5381;
         for (char &letter : key) {
-            hashVal = hashVal * 37 + letter;
+            hashVal = ((hashVal << 5) + hashVal) + letter;
+
         }
         return hashVal % tableSize;
     }
@@ -271,10 +272,9 @@ public:
     void insert(Hashable item) {
         // Get the key from the item
         string key = getKey(item);
-        reads += 1;
         if (!find(key)) {
             // Hash the key to get an index
-            unsigned long index = hornerHash(key);
+            unsigned long index = otherHash(key);
             unsigned long quad = 0;
             // Probe until we find a spot to insert
             while (table[index].status == filled) {
@@ -308,7 +308,7 @@ public:
     // Return type is optional<Hashable> because if we find the item,
     // we return it; otherwise we return nullopt.
     optional<Hashable> find(string key) {
-        unsigned long index = hornerHash(key);
+        unsigned long index = otherHash(key);
         unsigned long quad = 0;
         // Probe
         while (table[index].status != empty) {
@@ -326,7 +326,7 @@ public:
 
     // delete
     optional<Hashable> remove(string key) {
-        unsigned long index = hornerHash(key);
+        unsigned long index = otherHash(key);
         unsigned long quad = 0;
         // Probe
         while (table[index].status != empty) {
