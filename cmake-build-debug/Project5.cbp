@@ -101,6 +101,9 @@
 		<Unit filename="C:/Users/tyler/Desktop/CS124/Project5/SeparateChaining.h">
 			<Option target="Project5"/>
 		</Unit>
+		<Unit filename="C:/Users/tyler/Desktop/CS124/Project5/SeparateChainingOtherHash.h">
+			<Option target="Project5"/>
+		</Unit>
 		<Unit filename="C:/Users/tyler/Desktop/CS124/Project5/Weather.h">
 			<Option target="Project5"/>
 		</Unit>

@@ -54,6 +54,12 @@ public:
         SeparateChaining<MarsWeather> weather_sc_four(TABLE_SIZE_FOUR, getSolId);
         SeparateChaining<MarsWeather> weather_sc_five(TABLE_SIZE_FIVE, getSolId);
 
+        //For second getKey (getPressure)
+        SeparateChaining<MarsWeather> weather_sc_pressure(TABLE_SIZE_FIVE, getPressure);
+
+        //For second Hash Function
+        SeparateChainingOtherHash<MarsWeather> weather_sc_other_hash(TABLE_SIZE_FIVE, getSolId);
+
         for (MarsWeather &weather_id_sc : weather) {
             weather_sc_one.insert(weather_id_sc);
             //cout << hornerHash(std::to_string(weather_id_sc.getSol()), TABLE_SIZE_ONE) << endl;
@@ -78,25 +84,18 @@ public:
             weather_sc_five.insert(weather_id_sc);
             //cout << hornerHash(std::to_string(weather_id_sc.getSol()), TABLE_SIZE_FIVE) << endl;
         }
-        //weather_sc.printTable();
 
-        //if (weather_sc_three.find("1776")) {
-        //    cout << "Found 1776" << endl;
-        //}
+        for (MarsWeather &weather_id_sc : weather) {
+            weather_sc_pressure.insert(weather_id_sc);
+            //cout << hornerHash(std::to_string(weather_id_sc.getSol()), TABLE_SIZE_FIVE) << endl;
+        }
 
-        //if (weather_sc.find("998")) {
-        //    cout << "Found 998" << endl;
-        //}
+        for (MarsWeather &weather_id_sc : weather) {
+            weather_sc_other_hash.insert(weather_id_sc);
+            //cout << hornerHash(std::to_string(weather_id_sc.getSol()), TABLE_SIZE_FIVE) << endl;
+        }
 
-        //if (weather_sc.find("23")) {
-        //    cout << "Found 2400" << endl;
-        //}
 
-        //if (weather_sc.find("237")) {
-        //    cout << "Removing 237" << endl;
-            //weather_sc.remove("237");
-            //weather_sc.printTable();
-        //}
 
         std::cout << "\nSeparate Chaining" << std::endl;
         std::cout << "Number of Reads: " << weather_sc_one.getReads() << std::endl;
@@ -104,6 +103,8 @@ public:
         std::cout << "Number of Reads: " << weather_sc_three.getReads() << std::endl;
         std::cout << "Number of Reads: " << weather_sc_four.getReads() << std::endl;
         std::cout << "Number of Reads: " << weather_sc_five.getReads() << std::endl;
+        std::cout << "Number of Reads: " << weather_sc_pressure.getReads() << std::endl;
+        std::cout << "Number of Reads: " << weather_sc_other_hash.getReads() << std::endl;
 
     }
 
@@ -122,7 +123,12 @@ public:
         QuadraticProbing<MarsWeather> weather_qp_four(TABLE_SIZE_FOUR, getSolId);
         QuadraticProbing<MarsWeather> weather_qp_five(TABLE_SIZE_FIVE, getSolId);
 
-        //lecLin.printTable();
+        //Second getKey (getPressure)
+        QuadraticProbing<MarsWeather> weather_qp_pressure(TABLE_SIZE_FIVE, getPressure);
+
+        //Second hash function
+        QuadraticProbingOtherHash<MarsWeather> weather_qp_other_hash(TABLE_SIZE_TWO, getSolId);
+
         for (MarsWeather &weather_id_qp : weather) {
             weather_qp_one.insert(weather_id_qp);
             //cout << hornerHash(std::to_string(weather_id_qp.getSol()), TABLE_SIZE_ONE) << endl;
@@ -147,21 +153,16 @@ public:
             weather_qp_five.insert(weather_id_qp);
             //cout << hornerHash(std::to_string(weather_id_qp.getSol()), TABLE_SIZE_ONE) << endl;
         }
-        //weather_lp.printTable();
-        //for (int i = 0; i < 10; ++i) {
-        //    weather_lp.insert(weather[1]);
-        //}
-        //weather_lp.printTable();
 
-        //if (weather_qp.find("1667")) {
-        //    cout << "Found 1667" << "\n" << endl;
-        //}
-        //if (weather_qp.find("144")) {
-        //    cout << "Found 144" << "\n" << endl;
-        //}
-        //if (weather_qp.find("2112")) {
-        //    cout << "Found 2112" << "\n" << endl;
-        //}
+        for (MarsWeather &weather_id_qp : weather) {
+            weather_qp_pressure.insert(weather_id_qp);
+            //cout << hornerHash(std::to_string(weather_id_qp.getSol()), TABLE_SIZE_ONE) << endl;
+        }
+
+        for (MarsWeather &weather_id_qp : weather) {
+            weather_qp_other_hash.insert(weather_id_qp);
+            //cout << hornerHash(std::to_string(weather_id_qp.getSol()), TABLE_SIZE_ONE) << endl;
+        }
 
         std::cout << "\nQuadratic Probing" << std::endl;
         std::cout << "Number of reads: " << weather_qp_one.getReads() << std::endl;
@@ -169,6 +170,8 @@ public:
         std::cout << "Number of reads: " << weather_qp_three.getReads() << std::endl;
         std::cout << "Number of reads: " << weather_qp_four.getReads() << std::endl;
         std::cout << "Number of reads: " << weather_qp_five.getReads() << std::endl;
+        std::cout << "Number of reads: " << weather_qp_pressure.getReads() << std::endl;
+        std::cout << "Number of reads: " << weather_qp_other_hash.getReads() << std::endl;
     }
 
 };
