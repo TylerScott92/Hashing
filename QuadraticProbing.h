@@ -1,3 +1,12 @@
+/*
+    Tyler Scott
+    Project 5
+    *****************************
+    QuadraticProbing
+    - Insertion method changed to count reads with global "read" int
+    - Second class has altered hashing function called otherHash (uses DJB2 hashing algorithm)
+
+*/
 
 #ifndef PROJECT5_QUADRATICPROBING_H
 #define PROJECT5_QUADRATICPROBING_H

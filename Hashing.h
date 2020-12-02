@@ -1,9 +1,14 @@
+/*
+    Tyler Scott
+    Project 5
+    *****************************
+    Hashing.h
+    - Uses methods from SeparateChaining.h and QuadraticProbing.h
+      to perform hashing operations.
 
+*/
 #ifndef PROJECT5_HASHING_H
 #define PROJECT5_HASHING_H
-#include "HashTable.h"
-#include "Lecturer.h"
-#include "LinearProbing.h"
 #include "QuadraticProbing.h"
 #include "SeparateChaining.h"
 #include "Weather.h"
@@ -47,12 +52,13 @@ public:
         //For second getKey (getPressure)
         SeparateChaining<MarsWeather> weather_sc_pressure(TABLE_SIZE_ONE, getPressure);
 
-        //For second Hash Function
+        //For second Hash Function (otherHash)
         SeparateChainingOtherHash<MarsWeather> weather_sc_other_hash(TABLE_SIZE_ONE, getSolId);
 
         //Both
         SeparateChainingOtherHash<MarsWeather> weather_sc_both(TABLE_SIZE_ONE, getPressure);
 
+        //Loops to insert to hash table
         for (MarsWeather &weather_id_sc : weather) {
             weather_sc_one.insert(weather_id_sc);
         }
@@ -123,12 +129,13 @@ public:
         //Second getKey (getPressure)
         QuadraticProbing<MarsWeather> weather_qp_pressure(TABLE_SIZE_TWO, getPressure);
 
-        //Second hash function
+        //Second hash function (otherHash)
         QuadraticProbingOtherHash<MarsWeather> weather_qp_other_hash(TABLE_SIZE_TWO, getSolId);
 
         //Both
         QuadraticProbingOtherHash<MarsWeather> weather_qp_both(TABLE_SIZE_TWO, getPressure);
 
+        //Loops to insert to hash table
         for (MarsWeather &weather_id_qp : weather) {
             weather_qp_one.insert(weather_id_qp);
         }

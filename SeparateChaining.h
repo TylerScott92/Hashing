@@ -1,6 +1,12 @@
-//
-// Created by Lisa Dion on 11/2/20.
-//
+/*
+    Tyler Scott
+    Project 5
+    *****************************
+    SeparateChaining
+    - Insertion method changed to count reads with global "read" int
+    - Second class has altered hashing function called otherHash (uses DJB2 hashing algorithm)
+
+*/
 
 #ifndef HASHINGB_SEPARATECHAINING_H
 #define HASHINGB_SEPARATECHAINING_H
